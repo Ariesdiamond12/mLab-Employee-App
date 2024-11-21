@@ -15,13 +15,15 @@ const EmployeeComponent = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const [selectedEmployee, setSelectedEmployee] = useState(null);
+ const URL = "https://mlab-nodejs-task8-server.onrender.com"
+
 
   useEffect(() => {
     fetchEmployees();
   }, []);
 
   const fetchEmployees = async () => {
-    await fetch("http://localhost:3000/getUser")
+    await fetch(`${URL}/getUser`)
       .then((response) => response.json())
       .then((data) => setEmployees(data.users));
   };
@@ -41,7 +43,7 @@ const EmployeeComponent = () => {
     console.log("Form Data:", newEmployee);
 
     //Add to json server
-    fetch("http://localhost:3000/addUser", {
+    fetch(`${URL}/addUser`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newEmployee),
@@ -61,7 +63,7 @@ const EmployeeComponent = () => {
   };
 
   const handleDelete = (employeeId) => {
-    fetch(`http://localhost:3000/deleteUser/${employeeId}`, {
+    fetch(`${URL}/deleteUser/${employeeId}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     })
